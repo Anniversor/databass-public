@@ -34,12 +34,12 @@ Make sure your query plan matches the one provided in the comments of each test 
 
         f = From([
         Scan("data", "A"),
-        Scan("data", "B"),
+        Scan("data2", "B"),
         ])
   
-        preds = cond_to_func("(A.b = 2) and (A.b = B.c)")
+        preds = cond_to_func("(A.b = 2) and (A.b = B.n)")
         w = Filter(f, preds)
-        #print w
+
         db = Database()
         opt = Optimizer(db)
 
