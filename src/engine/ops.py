@@ -752,9 +752,9 @@ class Attr(ExprBase):
     self.tablename = tablename
     self.dbname = dbname
     if self.tablename:
-      print("WARNING: can't deal with * for specific tables: %s" % self.tablename)
+      print("WARNING: can't deal with column references for specific tables: %s" % self.tablename)
     if self.dbname:
-      print("WARNING: can't deal with * for specific databases: %s" % self.dbname)
+      print("WARNING: can't deal with column references for specific databases: %s" % self.dbname)
 
   def __call__(self, tup, tup2=None):
     if self.attr in tup:
