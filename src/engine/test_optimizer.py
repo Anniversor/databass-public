@@ -37,7 +37,7 @@ Make sure your query plan matches the one provided in the comments of each test 
         Scan("data2", "B"),
         ])
   
-        preds = cond_to_func("(b = 2) and (A.b = B.n)")
+        preds = cond_to_func("(b = 2) and (b = n)")
         w = Filter(f, preds)
 
         db = Database()
@@ -71,7 +71,7 @@ WHERE((A.b = 2.0) and (A.b = B.c))
         Scan("data", "G")
         ])
   
-        preds = cond_to_func("(A.a = 2) and (A.b = B.f) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d)")
+        preds = cond_to_func("(a = 2) and (b = f) and (a = b) and (b = c) and (c = d)")
         w = Filter(f, preds)
         print w
         db = Database()
@@ -130,7 +130,7 @@ WHERE((A.a = 2.0) and (A.b = B.f) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d
         Scan("data2", "G")
         ])
   
-        preds = cond_to_func("(A.a = 2) and (A.b = B.c) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d)")
+        preds = cond_to_func("(a = 2) and (b = c) and (a = b) and (b = c) and (c = d)")
         w = Filter(f, preds)
         print w
         db = Database()
@@ -171,7 +171,7 @@ WHERE((A.a = 2.0) and (A.b = B.c) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d
             THETAJOIN(ON D.a = E.b)
               Scan(data AS D)
               Scan(data2 AS E)
-.WHERE((A.a = 2.0) and (A.b = B.f) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d))
+.WHERE((a = 2.0) and (b = f) and (a = b) and (b = c) and (c = d))
   FROM()
     Scan(data AS A)
     Scan(data AS B)
