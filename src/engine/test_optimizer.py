@@ -113,7 +113,7 @@ WHERE((a = 2.0) and (b = f) and (a = b) and (b = c) and (c = d))
             Scan(data AS E)
             THETAJOIN(ON True)
               Scan(data AS F)
-
+              Scan(data2 AS G)
  
         '''
     def test_multijoin(self):
