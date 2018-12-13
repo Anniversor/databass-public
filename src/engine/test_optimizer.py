@@ -37,7 +37,7 @@ Make sure your query plan matches the one provided in the comments of each test 
         Scan("data2", "B"),
         ])
   
-        preds = cond_to_func("(A.b = 2) and (A.b = B.n)")
+        preds = cond_to_func("(b = 2) and (A.b = B.n)")
         w = Filter(f, preds)
 
         db = Database()
