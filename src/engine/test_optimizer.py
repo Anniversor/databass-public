@@ -50,10 +50,10 @@ Make sure your query plan matches the one provided in the comments of each test 
         Below is what your code should output:
 
 Test 1 join plan
-WHERE((A.b = 2.0) and (A.b = B.c))
-  THETAJOIN(ON A.b = B.c)
+WHERE((b = n))
+  THETAJOIN(ON True)
     Scan(data AS A)
-    Scan(data AS B)
+    Scan(data2 AS B)
         '''
         
     def test_selfjoin(self):
@@ -82,37 +82,38 @@ WHERE((A.b = 2.0) and (A.b = B.c))
 
         '''
         Below is what your code should output:
+(don't have to print the lines beginning 'tested'; those are just for your debugging)
 
 Test 2 join plan
-tested C True 646.666666667 1.0
-tested D True 646.666666667 1.0
-tested E True 646.666666667 1.0
-tested F True 646.666666667 1.0
-tested G True 646.666666667 1.0
-tested C True 5159.48717949 1.0
-tested D True 5159.48717949 1.0
-tested E True 5159.48717949 1.0
-tested F F.c = G.d 5159.48717949 1.0
-tested C True 95415.8974359 1.0
-tested D True 95415.8974359 1.0
-tested E E.b = F.c 91313.3333333 0.5
-tested C True 993877.435897 1.0
-tested D D.a = E.b 928236.410256 0.2
-tested C True 4538492.82051 1.0
-WHERE((A.a = 2.0) and (A.b = B.f) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d))
+tested A True 9260.0 1.0
+tested B True 9260.0 1.0
+tested C True 9260.0 1.0
+tested D True 9260.0 1.0
+tested E True 9260.0 1.0
+tested A True 185260.0 1.0
+tested B True 185260.0 1.0
+tested C True 185260.0 1.0
+tested D True 185260.0 1.0
+tested A True 3705260.0 1.0
+tested B True 3705260.0 1.0
+tested C True 3705260.0 1.0
+tested A True 74105260.0 1.0
+tested B True 74105260.0 1.0
+tested A True 1482105260.0 1.0
+WHERE((a = 2.0) and (b = f) and (a = b) and (b = c) and (c = d))
   THETAJOIN(ON True)
-    Scan(data AS C)
-    THETAJOIN(ON D.a = E.b)
-      Scan(data AS D)
-      THETAJOIN(ON E.b = F.c)
-        Scan(data AS E)
-        THETAJOIN(ON F.c = G.d)
-          Scan(data AS F)
+    Scan(data AS A)
+    THETAJOIN(ON True)
+      Scan(data AS B)
+      THETAJOIN(ON True)
+        Scan(data AS C)
+        THETAJOIN(ON True)
+          Scan(data AS D)
           THETAJOIN(ON True)
-            Scan(data AS G)
-            THETAJOIN(ON A.b = B.f)
-              Scan(data AS A)
-              Scan(data AS B)
+            Scan(data AS E)
+            THETAJOIN(ON True)
+              Scan(data AS F)
+
  
         '''
     def test_multijoin(self):
@@ -140,46 +141,38 @@ WHERE((A.a = 2.0) and (A.b = B.f) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d
 
 '''
 Below is what your code should print:
+(don't have to print the lines beginning 'tested'; those are just for your debugging)
 
 Test 3 join plan
-tested A True 862.0 1.0
-tested B True 862.0 1.0
-tested C True 862.0 1.0
-tested F E.b = F.c 842.0 0.5
-tested G True 862.0 1.0
-tested A True 5242.0 1.0
-tested B True 5242.0 1.0
-tested C True 5242.0 1.0
-tested G F.c = G.d 5242.0 1.0
-tested A True 93242.0 1.0
-tested B True 93242.0 1.0
-tested C True 93242.0 1.0
-tested A True 1853242.0 1.0
-tested B True 1853242.0 1.0
-tested A A.b = B.c 35453242.0 0.5
-WHERE((A.a = 2.0) and (A.b = B.c) and (D.a = E.b) and (E.b = F.c) and (F.c = G.d))
-  THETAJOIN(ON A.b = B.c)
+tested A True 9260.0 1.0
+tested B True 9260.0 1.0
+tested C True 9260.0 1.0
+tested D True 9260.0 1.0
+tested E True 9260.0 1.0
+tested A True 185260.0 1.0
+tested B True 185260.0 1.0
+tested C True 185260.0 1.0
+tested D True 185260.0 1.0
+tested A True 3705260.0 1.0
+tested B True 3705260.0 1.0
+tested C True 3705260.0 1.0
+tested A True 74105260.0 1.0
+tested B True 74105260.0 1.0
+tested A True 1482105260.0 1.0
+WHERE((a = 2.0) and (b = s) and (a = m) and (c = d))
+  THETAJOIN(ON True)
     Scan(data AS A)
     THETAJOIN(ON True)
       Scan(data AS B)
       THETAJOIN(ON True)
         Scan(data2 AS C)
-        THETAJOIN(ON F.c = G.d)
-          Scan(data2 AS G)
-          THETAJOIN(ON E.b = F.c)
-            Scan(data AS F)
-            THETAJOIN(ON D.a = E.b)
-              Scan(data AS D)
-              Scan(data2 AS E)
-.WHERE((a = 2.0) and (b = f) and (a = b) and (b = c) and (c = d))
-  FROM()
-    Scan(data AS A)
-    Scan(data AS B)
-    Scan(data AS C)
-    Scan(data AS D)
-    Scan(data AS E)
-    Scan(data AS F)
-    Scan(data AS G)
+        THETAJOIN(ON True)
+          Scan(data AS D)
+          THETAJOIN(ON True)
+            Scan(data2 AS E)
+            THETAJOIN(ON True)
+              Scan(data AS F)
+              Scan(data2 AS G)
 '''
 
 if __name__ == '__main__':
