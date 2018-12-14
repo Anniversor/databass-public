@@ -5,7 +5,7 @@ import sys
 try:
     import instabase.notebook.ipython.utils as ib
 except:
-pass
+    pass
 
 openfile = open
 try:
@@ -19,8 +19,8 @@ class Stats(object):
     # XXX: Edit this to compute the table cardinality
     def __init__(self, table):
         self.table = table
-        space = sys.getsizeof(table)
-        self.card = space/10
+        row_size = sys.getsizeof(len(table.rows))
+        self.card = int(row_size)
 
     # XXX: edit this to return the domain of the field
     def __getitem__(self, field):
