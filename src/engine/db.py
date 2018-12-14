@@ -1,8 +1,9 @@
 import pandas
 import numbers
 import os
+import sys
 try:
-  import instabase.notebook.ipython.utils as ib
+import instabase.notebook.ipython.utils as ib
 except:
   pass
 
@@ -18,11 +19,26 @@ class Stats(object):
   # XXX: Edit this to compute the table cardinality
   def __init__(self, table):
     self.table = table
-    self.card = 10
+    space = sys.getsizeof(table)
+    self.card = space/10
 
   # XXX: edit this to return the domain of the field
   def __getitem__(self, field):
-    return [0, 1]
+      type = self.table.type(field)
+      d = {}
+      if type == "num":
+          max = float('inf')
+          min = float('inf')
+          for row in self.table.rows:
+              if row[field] > max:
+                  max = row[field]
+              elif row[field] < min:
+                  min = row[field]
+          d["max"] = max
+          d["min"] = min
+
+        
+        
 
 
 class Table(object):
